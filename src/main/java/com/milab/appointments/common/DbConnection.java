@@ -3,6 +3,9 @@
  */
 package com.milab.appointments.common;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+
 /**
  * @author rgannabattula
  *
@@ -28,6 +31,8 @@ public class DbConnection {
 		}catch(Exception e){
 			e.printStackTrace();
 		}
+		return null;
+		
 	}
 
 	/**
