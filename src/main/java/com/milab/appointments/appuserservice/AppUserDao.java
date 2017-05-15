@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.milab.appointments.appuser;
+package com.milab.appointments.appuserservice;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -27,13 +27,13 @@ public class AppUserDao {
 		   /*String sql = "insert into  app_user(app_user_id ,  user_name ,  gender ,  age ,   address1 ,  address2 ,  area ,  vicinity_area ,  city ,state,  pin ,  user_id ,  password )" +  
   " values (? ,  ? ,  ? ,  ? , ? ,  ? ,  ? ,  ? ,  ? , ?,  ? ,  ? ,  ?)";*/
 		   
-		   String sql = "insert into  app_user(app_user_id ,  user_name )" +  
-				   " values (? ,  ? )";
+		   String sql = "insert into  app_user(user_name )" +  
+				   " values (? )";
 		   
 		   try {
 			PreparedStatement stmt = con.prepareStatement(sql);
-			stmt.setLong(1, appUser.getAppUserId());
-			stmt.setString(2, appUser.getUserName());
+			//stmt.setLong(1, appUser.getAppUserId());
+			stmt.setString(1, appUser.getUserName());
 			
 			stmt.execute();
 			

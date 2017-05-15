@@ -1,7 +1,7 @@
 /*
  * This is entity for App user object
  */
-package com.milab.appointments.appuser;
+package com.milab.appointments.appuserservice;
 
 public class AppUser {
 

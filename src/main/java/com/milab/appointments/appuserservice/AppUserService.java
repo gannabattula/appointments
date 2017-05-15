@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.milab.appointments.appuser;
+package com.milab.appointments.appuserservice;
 
 /**
  * 
