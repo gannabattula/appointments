@@ -99,6 +99,8 @@ public ArrayList<AppUser> findAll(){
 			AppUser a = new AppUser();
 			a.setAppUserId(result.getLong("app_user_id"));
 		    a.setUserName(result.getString("user_name"));
+		    
+		    //---
 		    list.add(a);
 		}
 		
