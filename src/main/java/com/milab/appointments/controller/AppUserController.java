@@ -1,7 +1,9 @@
 package com.milab.appointments.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -31,6 +33,14 @@ public class AppUserController extends HttpServlet {
 		// TODO Auto-generated method stub
 		
 		System.out.println("I am get method");
+		
+		AppUserService appUserService = new AppUserService();
+		ArrayList<AppUser> users = appUserService.getUsers();
+		
+		request.setAttribute("users", users);
+		
+		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/jsp/AppUserList.jsp");
+        dispatcher.forward(request, response);
 	}
 
 	/**
