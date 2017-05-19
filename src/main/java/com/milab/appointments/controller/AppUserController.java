@@ -34,13 +34,38 @@ public class AppUserController extends HttpServlet {
 		
 		System.out.println("I am get method");
 		
+		String parameter = request.getParameter("appUserId");
+		
 		AppUserService appUserService = new AppUserService();
-		ArrayList<AppUser> users = appUserService.getUsers();
 		
-		request.setAttribute("users", users);
 		
-		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/jsp/AppUserList.jsp");
-        dispatcher.forward(request, response);
+		if(parameter != null ){
+			Long userId = null;
+			// get single user details 
+			if(!parameter.isEmpty()){
+				userId = Long.parseLong(parameter);
+			}
+			try {
+				AppUser user = appUserService.getUserById(userId);
+				request.setAttribute("user", user);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				request.setAttribute("error", e.getMessage());
+			}
+			
+			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/jsp/updateRegistration.jsp");
+	        dispatcher.forward(request, response);
+			
+		}else{
+					
+			ArrayList<AppUser> users = appUserService.getUsers();
+			
+			request.setAttribute("users", users);
+			
+			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/jsp/AppUserList.jsp");
+	        dispatcher.forward(request, response);
+		}
 	}
 
 	/**
@@ -93,6 +118,9 @@ public class AppUserController extends HttpServlet {
 		AppUserService appUserService = new AppUserService();
 		appUserService.createAppUser(appUser);
 		
+		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("appUserController");
+        dispatcher.forward(request, response);
+        
 	}
 
 }

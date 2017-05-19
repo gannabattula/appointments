@@ -134,4 +134,53 @@ public ArrayList<AppUser> findAll(){
 }
 
 
+
+public AppUser findById(Long appUserId){
+	
+	// logic to insert into DB
+	
+	// get the connection  object
+	   Connection con = DbConnection.getDBConnection();
+	   
+	  // insert query
+	   	   	   
+	   String sql = "select app_user_id ,  user_name ,  gender ,  age ,   address1 ,  address2 ,  area , "
+	   		+ " vicinity_area ,  city ,state,  pin ,  user_id ,  password  "
+	   		+ " from app_user where app_user_id = ?";
+	   
+	   AppUser a=null;
+	   try {
+		PreparedStatement stmt = con.prepareStatement(sql);
+		stmt.setLong(1, appUserId);
+		ResultSet result = stmt.executeQuery();
+		a = new AppUser();;
+		while(result.next()) {
+		    // ... get column values from this record
+			
+			a.setAppUserId(result.getLong("app_user_id"));
+		    a.setUserName(result.getString("user_name"));
+		    a.setGender(result.getString("gender"));
+		    a.setAddress1(result.getString("address1"));
+		    a.setAddress2(result.getString("address2"));
+		    a.setArea(result.getString("area"));
+		    a.setVicinityArea(result.getString("vicinity_area"));
+		    a.setCity(result.getString("city"));
+		    a.setState(result.getString("state"));
+		    a.setPin(result.getInt("pin"));
+		    a.setUserId(result.getString("user_id"));
+		    a.setPassword(result.getString("password"));
+		    
+		    //---
+		}
+		
+		
+	} catch (SQLException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+	   
+	return a;
+}
+
+
 }

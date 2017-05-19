@@ -25,6 +25,14 @@ public class AppUserService {
 		return apd.findAll();
 	}
 	
+	public AppUser getUserById(Long appId) throws Exception{
+		if(appId == null){
+			throw new Exception("App User Id Is Mandatory");
+		}
+		AppUserDao apd = new AppUserDao();
+		return apd.findById(appId);
+	}
+	
 	public static void main(String arg[]){
 		
 		AppUserService  aps = new AppUserService();
