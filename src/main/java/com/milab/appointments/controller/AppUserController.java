@@ -41,8 +41,6 @@ public class AppUserController extends HttpServlet {
 		
 		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/jsp/AppUserList.jsp");
         dispatcher.forward(request, response);
-        
-         
 	}
 
 	/**
