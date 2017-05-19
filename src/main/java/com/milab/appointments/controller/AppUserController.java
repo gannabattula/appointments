@@ -77,6 +77,8 @@ public class AppUserController extends HttpServlet {
 		
 		AppUser appUser = new AppUser();
 		
+		String appUserId = request.getParameter("appUserId");
+		
 		String userName = request.getParameter("userName");
 		appUser.setUserName(userName);
 		
@@ -116,10 +118,19 @@ public class AppUserController extends HttpServlet {
 		System.out.println("user Name :" + userName);
 		
 		AppUserService appUserService = new AppUserService();
-		appUserService.createAppUser(appUser);
+		if(appUserId != null && !appUserId.isEmpty()){
+			
+			appUser.setAppUserId(Long.parseLong(appUserId));
+			//update
+			appUserService.updateAppUser(appUser);
+		}else{
+			appUserService.createAppUser(appUser);
+		}
 		
-		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("appUserController");
-        dispatcher.forward(request, response);
+		
+		/*RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/appUserController");
+		
+        dispatcher.forward(request, response);*/
         
 	}
 

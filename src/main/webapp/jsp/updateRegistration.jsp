@@ -19,7 +19,9 @@ user
 			<table style="with: 50%">
 			    <tr>
 				    <td>User Id</td>
-					<td>${ user.appUserId } </td>
+					<td>${ user.appUserId } 
+					<input type="hidden" name ="appUserId" value ="${ user.appUserId }"  />
+					</td>
 				</tr>			
 				<tr>
 					<td>User Name</td>

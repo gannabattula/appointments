@@ -19,6 +19,13 @@ public class AppUserService {
 		
 	}
 	
+	public void updateAppUser(AppUser appUser){
+		AppUserDao apd = new AppUserDao();		
+		
+		apd.update(appUser);
+		
+	}
+	
 	
 	public ArrayList<AppUser> getUsers(){
 		AppUserDao apd = new AppUserDao();
