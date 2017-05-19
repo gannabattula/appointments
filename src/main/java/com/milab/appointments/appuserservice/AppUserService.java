@@ -3,6 +3,8 @@
  */
 package com.milab.appointments.appuserservice;
 
+import java.util.ArrayList;
+
 /**
  * 
  * @author Venkat
@@ -17,6 +19,11 @@ public class AppUserService {
 		
 	}
 	
+	
+	public ArrayList<AppUser> getUsers(){
+		AppUserDao apd = new AppUserDao();
+		return apd.findAll();
+	}
 	
 	public static void main(String arg[]){
 		

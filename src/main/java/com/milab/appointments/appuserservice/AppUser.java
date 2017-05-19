@@ -7,6 +7,7 @@ public class AppUser {
 
 	private Long appUserId;
 	private String userName;
+	private String gender;
 	private  int age;
 	private String address1;
 	private String address2;
@@ -37,12 +38,13 @@ public class AppUser {
 	 * @param pin
 	 * @param password
 	 */
-	public AppUser(Long appUserId, String userName, int age, String address1,
+	public AppUser(Long appUserId, String userName,  String gender, int age, String address1,
 			String address2, String area, String vicinityArea, String city,
 			String state, String userId, Integer pin, String password) {
 		super();
 		this.appUserId = appUserId;
 		this.userName = userName;
+		this.gender= gender;
 		this.age = age;
 		this.address1 = address1;
 		this.address2 = address2;
@@ -77,6 +79,18 @@ public class AppUser {
 	 */
 	public void setUserName(String userName) {
 		this.userName = userName;
+	}
+	/**
+	 * @return the userName
+	 */
+	public String getGender() {
+		return gender;
+	}
+	/**
+	 * @param userName the userName to set
+	 */
+	public void setGender(String gender) {
+		this.gender = gender;
 	}
 	/**
 	 * @return the age
