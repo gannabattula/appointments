@@ -37,13 +37,11 @@ user
 						  <option value="Transgender">Transgender</option>
 						  <option value="Not Specified">Not Specified</option>
 						</select>
-
-
                      </td>
 				</tr>
 				<tr>
 					<td>Age</td>
-					<td><input type="text" name="age" /></td>
+					<td><input type="text" name="age"   /></td>
 				</tr>
 				<tr>
 					<td>Address1</td>
@@ -84,9 +82,6 @@ user
 			</table>
 			<input type="submit" value="update" />
 		</form>
-	</div>
-
-
-
-</body>
+	 </div>
+  </body>
 </html>

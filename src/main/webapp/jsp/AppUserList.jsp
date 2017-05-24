@@ -17,7 +17,8 @@ function invokeRegistrationForm() {
 }
 
 function editUser(appUserId) {
-    window.location.href="/appointments/appUserController?appUserId=" + appUserId;
+	alert('implement edit')
+    window.location.href="/appointments/appUserController?"
     
 }
 </script>
