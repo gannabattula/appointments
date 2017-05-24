@@ -5,13 +5,20 @@ package com.milab.appointments.appuserservice;
 
 import java.util.ArrayList;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 /**
  * 
  * @author
  *
  */
+@Service("appUserService")
 public class AppUserService {
 
+	@Autowired
+	AppUserDao appUserDao;
+	
 	public void createAppUser(AppUser appUser){
 		AppUserDao apd = new AppUserDao();		
 		
@@ -28,8 +35,7 @@ public class AppUserService {
 	
 	
 	public ArrayList<AppUser> getUsers(){
-		AppUserDao apd = new AppUserDao();
-		return apd.findAll();
+		return appUserDao.findAll();
 	}
 	
 	public AppUser getUserById(Long appId) throws Exception{

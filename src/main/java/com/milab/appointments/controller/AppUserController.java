@@ -11,8 +11,12 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.milab.appointments.appuserservice.AppUser;
 import com.milab.appointments.appuserservice.AppUserService;
+import com.milab.appointments.common.ApplicationContextProvider;
 
 /**
+ * http://websystique.com/spring-4-mvc-tutorial/
+ * 
+ * 
  * Servlet implementation class AppUserController
  */
 public class AppUserController extends HttpServlet {
@@ -36,7 +40,8 @@ public class AppUserController extends HttpServlet {
 		
 		String parameter = request.getParameter("appUserId");
 		
-		AppUserService appUserService = new AppUserService();
+		AppUserService appUserService = (AppUserService)ApplicationContextProvider.getBean("appUserService");
+		//AppUserService appUserService = new AppUserService();
 		
 		
 		if(parameter != null ){
@@ -117,7 +122,8 @@ public class AppUserController extends HttpServlet {
 		
 		System.out.println("user Name :" + userName);
 		
-		AppUserService appUserService = new AppUserService();
+		AppUserService appUserService = (AppUserService)ApplicationContextProvider.getBean("appUserService");
+		//AppUserService appUserService = new AppUserService();
 		if(appUserId != null && !appUserId.isEmpty()){
 			
 			appUser.setAppUserId(Long.parseLong(appUserId));

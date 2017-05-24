@@ -8,9 +8,16 @@
   <name>appointments Maven Webapp</name>
   <url>http://maven.apache.org</url>
   
-  
-  <dependencies>
-  
+  <properties>
+        <springframework.version>4.0.6.RELEASE</springframework.version>
+    </properties>
+ 
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-webmvc</artifactId>
+            <version>${springframework.version}</version>
+        </dependency>
   <!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
 <dependency>
     <groupId>mysql</groupId>
