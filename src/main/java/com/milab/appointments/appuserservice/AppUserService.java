@@ -20,16 +20,14 @@ public class AppUserService {
 	AppUserDao appUserDao;
 	
 	public void createAppUser(AppUser appUser){
-		AppUserDao apd = new AppUserDao();		
 		
-		apd.create(appUser);
+		appUserDao.create(appUser);
 		
 	}
 	
 	public void updateAppUser(AppUser appUser){
-		AppUserDao apd = new AppUserDao();		
 		
-		apd.update(appUser);
+		appUserDao.update(appUser);
 		
 	}
 	
@@ -42,20 +40,8 @@ public class AppUserService {
 		if(appId == null){
 			throw new Exception("App User Id Is Mandatory");
 		}
-		AppUserDao apd = new AppUserDao();
-		return apd.findById(appId);
+		return appUserDao.findById(appId);
 	}
 	
-	public static void main(String arg[]){
-		
-		AppUserService  aps = new AppUserService();
-		
-		AppUser ap = new AppUser();
-		ap.setAppUserId(3L);
-		ap.setUserName("karthing");
-		
-		System.out.println("initiating the object" );
-		aps.createAppUser(ap);
-		
-	}
+	
 }
