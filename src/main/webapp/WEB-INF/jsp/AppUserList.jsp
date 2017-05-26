@@ -12,13 +12,12 @@
 
 <script>
 function invokeRegistrationForm() {
-    window.location.href="/appointments/jsp/Registration.jsp"
+    window.location.href="/appointments/appUser/registrationForm"
     
 }
 
 function editUser(appUserId) {
-	alert('implement edit')
-    window.location.href="/appointments/appUserController?"
+    window.location.href="/appointments/appUser/" + appUserId;
     
 }
 </script>

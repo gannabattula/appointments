@@ -9,6 +9,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+
 import com.milab.appointments.appuserservice.AppUser;
 import com.milab.appointments.appuserservice.AppUserService;
 import com.milab.appointments.common.ApplicationContextProvider;
@@ -19,9 +27,13 @@ import com.milab.appointments.common.ApplicationContextProvider;
  * 
  * Servlet implementation class AppUserController
  */
-public class AppUserController extends HttpServlet {
+@Controller
+@RequestMapping(value="/appUser")
+public class AppUserController {
 	private static final long serialVersionUID = 1L;
-       
+    
+	@Autowired
+	AppUserService appUserService;
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -33,111 +45,80 @@ public class AppUserController extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    @RequestMapping(value="/{appUserId}", method = RequestMethod.GET)
+	protected String doGet(ModelMap model, @PathVariable Long appUserId)  {
 		// TODO Auto-generated method stub
 		
 		System.out.println("I am get method");
 		
-		String parameter = request.getParameter("appUserId");
-		
-		AppUserService appUserService = (AppUserService)ApplicationContextProvider.getBean("appUserService");
-		//AppUserService appUserService = new AppUserService();
-		
-		
-		if(parameter != null ){
-			Long userId = null;
+		if(appUserId != null ){
 			// get single user details 
-			if(!parameter.isEmpty()){
-				userId = Long.parseLong(parameter);
-			}
 			try {
-				AppUser user = appUserService.getUserById(userId);
-				request.setAttribute("user", user);
+				AppUser user = appUserService.getUserById(appUserId);
+				model.addAttribute("user", user);
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-				request.setAttribute("error", e.getMessage());
+				model.addAttribute("error", e.getMessage());
 			}
-			
-			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/jsp/updateRegistration.jsp");
-	        dispatcher.forward(request, response);
+			return "updateRegistration";
 			
 		}else{
 					
-			ArrayList<AppUser> users = appUserService.getUsers();
+			return getAppUserList(model);
 			
-			request.setAttribute("users", users);
-			
-			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/jsp/AppUserList.jsp");
-	        dispatcher.forward(request, response);
 		}
 	}
 
+    
+    @RequestMapping(method = RequestMethod.GET)
+   	protected String getAppUserList(ModelMap model)  {
+   		// TODO Auto-generated method stub
+   		
+   		System.out.println("I am get method  app user list");
+   		
+   		
+   			
+   			ArrayList<AppUser> users = appUserService.getUsers();
+   			
+   			model.addAttribute("users", users);
+   			
+   	        return "AppUserList";
+   			
+   	}
+
+    
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    @RequestMapping(method = RequestMethod.POST)
+	protected String createAppUser(ModelMap model, @ModelAttribute("appUser")AppUser appUser )  {
 		// TODO Auto-generated method stub
 		System.out.println("You are in right place -- post method ");
 		
-		AppUser appUser = new AppUser();
-		
-		String appUserId = request.getParameter("appUserId");
-		
-		String userName = request.getParameter("userName");
-		appUser.setUserName(userName);
-		
-		String gender = request.getParameter("gender");
-		appUser.setGender(gender);
-		
-		 String address1 = request.getParameter("address1");
-		  appUser.setAddress1(address1);
-		  
-		  String address2 = request.getParameter("address2");
-		  appUser.setAddress2(address2);
-		  
-		  String area = request.getParameter("area");
-		  appUser.setArea(area);
-		  
-		  String VicinityArea = request.getParameter("vicinityArea");
-		  appUser.setVicinityArea(VicinityArea);
-		  
-		  String city = request.getParameter("city");
-		  appUser.setCity(city);
-		  
-		  String state = request.getParameter("state");
-		  appUser.setState(state);
-		  
-		  //Integer pin = Integer.parseInt("pin");
-		  //appUser.setPin(pin);
-		  
-		  String UserId = request.getParameter("userId");
-		  appUser.setUserId(UserId);
-		  
-		  String password = request.getParameter("password");
-		  appUser.setPassword(password);
-		
-		  //Integer age = Integer.parseInt("age");
-		  //appUser.setAge(age);
-		
-		System.out.println("user Name :" + userName);
-		
-		AppUserService appUserService = (AppUserService)ApplicationContextProvider.getBean("appUserService");
-		//AppUserService appUserService = new AppUserService();
-		if(appUserId != null && !appUserId.isEmpty()){
+		if(appUser.getAppUserId()!= null && appUser.getAppUserId() >= 0L){
 			
-			appUser.setAppUserId(Long.parseLong(appUserId));
+			appUser.setAppUserId(appUser.getAppUserId());
 			//update
 			appUserService.updateAppUser(appUser);
 		}else{
 			appUserService.createAppUser(appUser);
 		}
 		
+	 return getAppUserList(model);
 		
-		/*RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/appUserController");
-		
-        dispatcher.forward(request, response);*/
-        
 	}
+
+    
+    @RequestMapping(value="/registrationForm",method = RequestMethod.GET)
+   	protected String getAppUserForm(ModelMap model )  {
+   		// TODO Auto-generated method stub
+   		System.out.println("You are in right place -- post method ");
+   		
+   		AppUser appUser = new AppUser();
+   		model.addAttribute("appUser", appUser);
+   	 return "CreatingRegistration";
+   		
+   	}
 
 }
